@@ -58,4 +58,11 @@ void IR_DataObject::clear() {
     value = "";
 }
 
+void IR_DataObject::setPath(PathType path) {
+    this->path = path;
+}
+
+PathType IR_DataObject::getPath(){
+    return path;
+}
 

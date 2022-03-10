@@ -13,6 +13,7 @@
 #include "../rapidXML/rapidxml.hpp"
 #include "IR_Operator.h"
 #include "IR_DataObject.h"
+#include "configCodeStructure.h"
 
 using namespace std;
 using namespace rapidxml;
@@ -30,5 +31,6 @@ void parseOperator(xml_node<> &parentOperator_node, int &arrNestedOperator, list
 void parseData(xml_node<> &operator_node, map<string, IR_DataObject> &arrInData, map<string,
                IR_DataObject> &arrOutData);
 
+void fillingStructures();
 
 #endif //FRONT_END_RVM_COMPILER_PARSEXMLFUNCTIONS_H

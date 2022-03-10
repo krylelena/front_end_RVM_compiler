@@ -2,20 +2,20 @@
 
 <program name ="inner product Terminal">
   <operator id="mult1" type ="Terminal">
-    <data id="x1" type ="float" connect_type ="input" order ="1" access_time ="10" state ="empty"/>
-    <data id="y1" type ="float" connect_type ="input" order ="2" access_time ="10" state ="empty"/>
-    <data id="c1" type ="float" connect_type ="output" order ="1" access_time ="10" state ="empty"/>
+    <data id="x1" type ="float" path = "number1.txt" connect_type ="input" order ="1" access_time ="10" state ="full" value = ""/>
+    <data id="y1" type ="float" path = "number2.txt" connect_type ="input" order ="2" access_time ="10" state ="full" value = ""/>
+    <data id="c1" type ="float" path = "" connect_type ="output" order ="1" access_time ="10" state ="empty"/>
   </operator>
 
   <operator id="mult2" type ="Terminal">
-    <data id="x2" type ="float" connect_type ="input" order ="1" access_time ="10" state ="empty"/>
-    <data id="y2" type ="float" connect_type ="input" order ="2" access_time ="10" state ="empty"/>
-    <data id="c2" type ="float" connect_type ="output" order ="1" access_time ="10" state ="empty"/>
+    <data id="x2" type ="float" path = "number3.txt" connect_type ="input" order ="1" access_time ="10" state ="full" value = ""/>
+    <data id="y2" type ="float" path = "number4.txt" connect_type ="input" order ="2" access_time ="10" state ="full" value = ""/>
+    <data id="c2" type ="float" path = "" connect_type ="output" order ="1" access_time ="10" state ="empty"/>
   </operator>
 
   <operator id="add" type ="Terminal">
-    <data id="c1" type ="float" connect_type ="input" order ="1" access_time ="10" state ="empty"/>
-    <data id="c2" type ="float" connect_type ="input" order ="2" access_time ="10" state ="empty"/>
-    <data id="c" type ="float" connect_type ="output" order ="1" access_time ="10" state ="empty"/>
+    <data id="c1" type ="float" path = "" connect_type ="input" order ="1" access_time ="10" state ="empty"/>
+    <data id="c2" type ="float" path = "" connect_type ="input" order ="2" access_time ="10" state ="empty"/>
+    <data id="c" type ="float" path = "" connect_type ="output" order ="1" access_time ="10" state ="empty"/>
   </operator>
 </program>

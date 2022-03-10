@@ -9,7 +9,7 @@ void testXML() {
     xml_node<> *root_node = NULL;
 
     // Read the sample.xml file
-    ifstream theFile("../XML_files/AlgScalar1.xml");
+    ifstream theFile("../XML_files/AlgScalar2.xml");
     vector<char> buffer((istreambuf_iterator<char>(theFile)), istreambuf_iterator<char>());
     buffer.push_back('\0');
 
@@ -141,6 +141,7 @@ void parseData(xml_node<> &operator_node, map<string,IR_DataObject> &arrInData, 
 
         currentData.setId(data_node->first_attribute("id")->value());
         currentData.setType(data_node->first_attribute("type")->value());
+        currentData.setPath(data_node->first_attribute("path")->value());
         currentData.setAccessTime(data_node->first_attribute("access_time")->value());
         currentData.setState(data_node->first_attribute("state")->value());
 
@@ -160,4 +161,17 @@ void parseData(xml_node<> &operator_node, map<string,IR_DataObject> &arrInData, 
         currentData.clear();
     }
     cout << endl;
+}
+
+void fillingStructures() {
+    struct ControlSection controlSection;
+
+    controlSection.LCF = 1; //means that this is the last Configcode in the task
+    controlSection.NAF = 0; //
+    controlSection.Task_ID = 1;
+    controlSection.RPI_version = 1; //version number of supported general radio programming interface
+    controlSection.Reference_ID = 1; //identifier of the reference Radio Library
+    controlSection.Implementation_version = 1;
+    controlSection.Developer_ID = 1;
+    controlSection.Creation_Date = 2022;
 }

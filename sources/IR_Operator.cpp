@@ -177,6 +177,7 @@ void IR_Operator::showInputData(){
         cout << "    Data ";
         cout << "id = " << inputData[i]->getId();
         cout << "  type = " << inputData[i]->getType();
+        cout << "  path = " << inputData[i]->getPath();
         cout << "  access_time = " << inputData[i]->getAccessTime();
         cout << "  state = " << inputData[i]->getState();
         cout << "  value = " << inputData[i]->getValue();
@@ -185,6 +186,7 @@ void IR_Operator::showInputData(){
         fout << "    Data ";
         fout << "id = " << inputData[i]->getId();
         fout << "  type = " << inputData[i]->getType();
+        fout << "  path = " << inputData[i]->getPath();
         fout << "  access_time = " << inputData[i]->getAccessTime();
         fout << "  state = " << inputData[i]->getState();
         fout << "  value = " << inputData[i]->getValue();

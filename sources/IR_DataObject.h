@@ -12,6 +12,7 @@ using namespace std;
 
 using ID_type = string;
 using DataType = string;
+using PathType = string;
 using AccessTimeType = string; // должен быть int
 using StateType = string;
 using ValueType = string;
@@ -20,6 +21,7 @@ class IR_DataObject
 {
     ID_type id;
     DataType type;
+    PathType path;
     AccessTimeType accessTime;
     StateType state;
     ValueType value;
@@ -42,6 +44,9 @@ public:
 
     void setValue(ValueType value);
     ValueType getValue();
+
+    void setPath(PathType path);
+    PathType getPath();
 
     void clear();
 

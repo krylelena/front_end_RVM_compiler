@@ -13,8 +13,8 @@ struct ControlSection {
     uint8_t RPI_version;
     uint8_t Reference_ID;
     uint8_t Implementation_version;
-    uint16_t Developer_ID;
-    uint16_t Creation_Date;
+    uint16_t Developer_ID; //15 bits
+    uint16_t Creation_Date; //17 bits
 };
 struct DO_Config{
     uint8_t DO_ID;

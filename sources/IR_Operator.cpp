@@ -178,6 +178,7 @@ void IR_Operator::showInputData(){
         cout << "id = " << inputData[i]->getId();
         cout << "  type = " << inputData[i]->getType();
         cout << "  path = " << inputData[i]->getPath();
+        cout << "  connect_type = input";
         cout << "  access_time = " << inputData[i]->getAccessTime();
         cout << "  state = " << inputData[i]->getState();
         cout << "  value = " << inputData[i]->getValue();
@@ -187,6 +188,7 @@ void IR_Operator::showInputData(){
         fout << "id = " << inputData[i]->getId();
         fout << "  type = " << inputData[i]->getType();
         fout << "  path = " << inputData[i]->getPath();
+        fout << "  connect_type = input";
         fout << "  access_time = " << inputData[i]->getAccessTime();
         fout << "  state = " << inputData[i]->getState();
         fout << "  value = " << inputData[i]->getValue();
@@ -202,6 +204,8 @@ void IR_Operator::showOutputData() {
         cout << "    Data ";
         cout << "id = " << outputData[i]->getId();
         cout << "  type = " << outputData[i]->getType();
+        cout << "  path = " << outputData[i]->getPath();
+        cout << "  connect_type = output";
         cout << "  access_time = " << outputData[i]->getAccessTime();
         cout << "  state = " << outputData[i]->getState();
         cout << "  value = " << outputData[i]->getValue();
@@ -210,6 +214,8 @@ void IR_Operator::showOutputData() {
         fout << "    Data ";
         fout << "id = " << outputData[i]->getId();
         fout << "  type = " << outputData[i]->getType();
+        fout << "  path = " << outputData[i]->getPath();
+        fout << "  connect_type = output";
         fout << "  access_time = " << outputData[i]->getAccessTime();
         fout << "  state = " << outputData[i]->getState();
         fout << "  value = " << outputData[i]->getValue();

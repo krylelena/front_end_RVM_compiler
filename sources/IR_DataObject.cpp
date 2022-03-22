@@ -12,7 +12,7 @@ IR_DataObject::~IR_DataObject() {}
 void IR_DataObject::setId(ID_type newId) {
     id = newId;
 }
-ID_type IR_DataObject::getId() {
+ID_type IR_DataObject::getId() const{
     return id;
 }
 

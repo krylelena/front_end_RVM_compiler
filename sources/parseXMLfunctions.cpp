@@ -35,7 +35,7 @@ void parseProgram(xml_node<> &root_node) {
         el.showAll();
         cout << endl;
     }
-
+    cout << DataHeap.size() << endl;
 }
 
 void parseHighLevelOperator(xml_node<> &parentOperator_node, vector<IR_Operator> &arrProgram,
@@ -69,13 +69,19 @@ void parseHighLevelOperator(xml_node<> &parentOperator_node, vector<IR_Operator>
 
         for (int i = 1; i < arrInData.size() + 1; i++) {
             IR_DataObject bufData = arrInData[to_string(i)];
-            DataHeap.push_back(bufData);
-            currentOperator.addInputData(DataHeap.back());
+            if (!searchData(DataHeap, bufData)) {
+                DataHeap.push_back(bufData);
+            }
+            IR_DataObject *ptr = getData(DataHeap, bufData);
+            currentOperator.addInputData(*ptr);
         }
         for (int i = 1; i < arrOutData.size() + 1; i++) {
             IR_DataObject bufData = arrOutData[to_string(i)];
-            DataHeap.push_back(bufData);
-            currentOperator.addOutputData(DataHeap.back());
+            if (!searchData(DataHeap, bufData)) {
+                DataHeap.push_back(bufData);
+            }
+            IR_DataObject *ptr = getData(DataHeap, bufData);
+            currentOperator.addOutputData(*ptr);
         }
         arrProgram.push_back(currentOperator);
         currentOperator.clear();
@@ -114,13 +120,19 @@ void parseOperator(xml_node<> &parentOperator_node, int &arrNestedOperator,
 
         for (int i = 1; i < arrInData.size() + 1; i++) {
             IR_DataObject bufData = arrInData[to_string(i)];
-            DataHeap.push_back(bufData);
-            currentOperator.addInputData(DataHeap.back());
+           if (!searchData(DataHeap, bufData)) {
+               DataHeap.push_back(bufData);
+           }
+            IR_DataObject *ptr = getData(DataHeap, bufData);
+            currentOperator.addInputData(*ptr);
         }
         for (int i = 1; i < arrOutData.size() + 1; i++) {
             IR_DataObject bufData = arrOutData[to_string(i)];
-            DataHeap.push_back(bufData);
-            currentOperator.addOutputData(DataHeap.back());
+            if (!searchData(DataHeap, bufData)) {
+                DataHeap.push_back(bufData);
+            }
+            IR_DataObject *ptr = getData(DataHeap, bufData);
+            currentOperator.addOutputData(*ptr);
         }
 
         OperatorHeap.push_back(currentOperator);
@@ -174,4 +186,21 @@ void fillingStructures() {
     controlSection.Implementation_version = 1;
     controlSection.Developer_ID = 1;
     controlSection.Creation_Date = 2022;
+}
+
+int searchData(list<IR_DataObject> &DataHeap, IR_DataObject &bufData) {
+    for (auto const& elem : DataHeap) {
+        if (elem.getId() == bufData.getId()){
+            return 1;
+        }
+    }
+    return 0;
+}
+
+IR_DataObject* getData(list<IR_DataObject> &DataHeap, IR_DataObject &bufData) {
+    for (auto &elem : DataHeap) {
+        if (elem.getId() == bufData.getId()){
+            return &elem;
+        }
+    }
 }

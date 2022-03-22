@@ -10,9 +10,10 @@
 //using namespace std;
 
 int main() {
-//    testXML();
+    testXML();
 //    LogManager().makeLog("your log string");
-    fillingStructures();
+
+    //fillingStructures();
     return 0;
 }
 

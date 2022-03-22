@@ -31,7 +31,7 @@ public:
     ~IR_DataObject();
 
     void setId(ID_type newId);
-    ID_type getId();
+    ID_type getId() const;
 
     void setType(DataType newType);
     DataType getType();

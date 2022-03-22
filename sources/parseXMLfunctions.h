@@ -10,6 +10,7 @@
 #include <vector>
 #include <list>
 #include <map>
+#include <algorithm>
 #include "../rapidXML/rapidxml.hpp"
 #include "IR_Operator.h"
 #include "IR_DataObject.h"
@@ -32,5 +33,10 @@ void parseData(xml_node<> &operator_node, map<string, IR_DataObject> &arrInData,
                IR_DataObject> &arrOutData);
 
 void fillingStructures();
+
+// other functions
+int searchData(list<IR_DataObject> &DataHeap, IR_DataObject &bufData);
+
+IR_DataObject* getData(list<IR_DataObject> &DataHeap, IR_DataObject &bufData);
 
 #endif //FRONT_END_RVM_COMPILER_PARSEXMLFUNCTIONS_H

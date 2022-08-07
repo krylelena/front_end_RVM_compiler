@@ -4,7 +4,6 @@ IR_DataObject::IR_DataObject() {
     id = "No id for data";
     type = "float";
     accessTime = "10";
-    state = "No state";
     value = "";
 }
 IR_DataObject::~IR_DataObject() {}
@@ -30,16 +29,6 @@ AccessTimeType IR_DataObject::getAccessTime(){
     return accessTime;
 }
 
-void IR_DataObject::setState(StateType state)
-{
-    this->state = state;
-}
-
-StateType IR_DataObject::getState()
-{
-    return state;
-}
-
 void IR_DataObject::setValue(ValueType value)
 {
     this->value = value;
@@ -54,7 +43,6 @@ void IR_DataObject::clear() {
     id = "No id for data";
     type = "float";
     accessTime = "10";
-    state = "No state";
     value = "";
 }
 

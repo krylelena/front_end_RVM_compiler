@@ -36,6 +36,7 @@ void parseProgram(xml_node<> &root_node) {
         cout << endl;
     }
     cout << DataHeap.size() << endl;
+    fillingStructures(arrProgram, OperatorHeap, DataHeap);
 }
 
 void parseHighLevelOperator(xml_node<> &parentOperator_node, vector<IR_Operator> &arrProgram,
@@ -54,7 +55,7 @@ void parseHighLevelOperator(xml_node<> &parentOperator_node, vector<IR_Operator>
             parseOperator(*operator_node, local_arrNestedOperator, OperatorHeap, DataHeap);
 
             auto it_end = OperatorHeap.end();
-            for (int i = 0; i < local_arrNestedOperator; i++){
+            for (int i = 0; i < local_arrNestedOperator; i++) {
                 --it_end;
             }
             for (int i = 0; i < local_arrNestedOperator; i++) {
@@ -107,7 +108,7 @@ void parseOperator(xml_node<> &parentOperator_node, int &arrNestedOperator,
             parseOperator(*operator_node, local_arrNestedOperator, OperatorHeap, DataHeap);
 
             auto it_end = OperatorHeap.end();
-            for (int i = 0; i < local_arrNestedOperator; i++){
+            for (int i = 0; i < local_arrNestedOperator; i++) {
                 --it_end;
             }
             for (int i = 0; i < local_arrNestedOperator; i++) {
@@ -120,9 +121,9 @@ void parseOperator(xml_node<> &parentOperator_node, int &arrNestedOperator,
 
         for (int i = 1; i < arrInData.size() + 1; i++) {
             IR_DataObject bufData = arrInData[to_string(i)];
-           if (!searchData(DataHeap, bufData)) {
-               DataHeap.push_back(bufData);
-           }
+            if (!searchData(DataHeap, bufData)) {
+                DataHeap.push_back(bufData);
+            }
             IR_DataObject *ptr = getData(DataHeap, bufData);
             currentOperator.addInputData(*ptr);
         }
@@ -144,7 +145,8 @@ void parseOperator(xml_node<> &parentOperator_node, int &arrNestedOperator,
 
 }
 
-void parseData(xml_node<> &operator_node, map<string,IR_DataObject> &arrInData, map<string, IR_DataObject> &arrOutData) {
+void
+parseData(xml_node<> &operator_node, map<string, IR_DataObject> &arrInData, map<string, IR_DataObject> &arrOutData) {
 
     IR_DataObject currentData;
 
@@ -155,13 +157,8 @@ void parseData(xml_node<> &operator_node, map<string,IR_DataObject> &arrInData, 
         currentData.setType(data_node->first_attribute("type")->value());
         currentData.setPath(data_node->first_attribute("path")->value());
         currentData.setAccessTime(data_node->first_attribute("access_time")->value());
-        currentData.setState(data_node->first_attribute("state")->value());
+        currentData.setValue(data_node->first_attribute("value")->value());
 
-        string state = data_node->first_attribute("state")->value();
-
-        if (state == "full") {
-            currentData.setValue(data_node->first_attribute("value")->value());
-        }
         string connect_type = data_node->first_attribute("connect_type")->value();
         string order = data_node->first_attribute("order")->value();
         if (connect_type == "input") {
@@ -175,8 +172,48 @@ void parseData(xml_node<> &operator_node, map<string,IR_DataObject> &arrInData, 
     cout << endl;
 }
 
-void fillingStructures() {
+void
+fillingStructures(vector<IR_Operator> &arrProgram, list<IR_Operator> &OperatorHeap, list<IR_DataObject> &DataHeap) {
     struct ControlSection controlSection;
+    filligControlSections(controlSection);
+
+    struct DO_Section do_section = {}; // zero all
+    do_section.N_DO = DataHeap.size();
+
+    // Filling DO_Configs
+    do_section.DOs = new struct DO_Config[do_section.N_DO];
+    int i = 0;
+    for (auto &elem: DataHeap) {
+        do_section.DOs[i].DO_ID = i;
+        do_section.DOs[i].access_time = stoi(elem.getAccessTime());
+        if (elem.getType() == "float") {
+            do_section.DOs[i].size = sizeof(float);
+        }
+        if (elem.getPath() == "") {
+            if (elem.getValue() != "") {
+                if (elem.getType() == "float") {
+                    do_section.DOs[i].length = sizeof(float);
+                    //***********************
+                    //convert float to bin (union)
+                    do_section.DOs[i].data = new uint8_t[sizeof(float)];
+                    auto bufData = stof(elem.getValue());
+                    memcpy(do_section.DOs[i].data, &bufData, sizeof(float));
+                }
+            }
+        }
+        else {
+            do_section.DOs[i].length = elem.getPath().size();
+            do_section.DOs[i].data = new uint8_t[elem.getPath().size()];
+            auto bufData = elem.getPath().c_str();
+            memcpy(do_section.DOs[i].data, &bufData, elem.getPath().size());
+        }
+    i++;
+    }
+
+    // Filling ASF_Configs
+}
+
+void filligControlSections(struct ControlSection &controlSection) {
 
     controlSection.LCF = 1; //means that this is the last Configcode in the task
     controlSection.NAF = 0; //
@@ -189,17 +226,17 @@ void fillingStructures() {
 }
 
 int searchData(list<IR_DataObject> &DataHeap, IR_DataObject &bufData) {
-    for (auto const& elem : DataHeap) {
-        if (elem.getId() == bufData.getId()){
+    for (auto const &elem: DataHeap) {
+        if (elem.getId() == bufData.getId()) {
             return 1;
         }
     }
     return 0;
 }
 
-IR_DataObject* getData(list<IR_DataObject> &DataHeap, IR_DataObject &bufData) {
-    for (auto &elem : DataHeap) {
-        if (elem.getId() == bufData.getId()){
+IR_DataObject *getData(list<IR_DataObject> &DataHeap, IR_DataObject &bufData) {
+    for (auto &elem: DataHeap) {
+        if (elem.getId() == bufData.getId()) {
             return &elem;
         }
     }

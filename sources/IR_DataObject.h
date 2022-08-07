@@ -14,7 +14,6 @@ using ID_type = string;
 using DataType = string;
 using PathType = string;
 using AccessTimeType = string; // должен быть int
-using StateType = string;
 using ValueType = string;
 
 class IR_DataObject
@@ -23,7 +22,6 @@ class IR_DataObject
     DataType type;
     PathType path;
     AccessTimeType accessTime;
-    StateType state;
     ValueType value;
 
 public:
@@ -38,9 +36,6 @@ public:
 
     void setAccessTime(AccessTimeType newAccessTime);
     AccessTimeType getAccessTime();
-
-    void setState(StateType state);
-    StateType getState();
 
     void setValue(ValueType value);
     ValueType getValue();

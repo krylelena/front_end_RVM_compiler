@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <cstring>
 #include <vector>
 #include <list>
 #include <map>
@@ -32,7 +33,8 @@ void parseOperator(xml_node<> &parentOperator_node, int &arrNestedOperator, list
 void parseData(xml_node<> &operator_node, map<string, IR_DataObject> &arrInData, map<string,
                IR_DataObject> &arrOutData);
 
-void fillingStructures();
+void fillingStructures(vector<IR_Operator> &arrProgram, list<IR_Operator> &OperatorHeap, list<IR_DataObject> &DataHeap);
+void filligControlSections(struct ControlSection & controlSection);
 
 // other functions
 int searchData(list<IR_DataObject> &DataHeap, IR_DataObject &bufData);
